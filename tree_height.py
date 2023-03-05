@@ -14,10 +14,8 @@ def compute_height(n, parents):
         if parents[i] != -1:
             index = parents[i]
             empty[index] = 1
-        else:
-            empty[0] = 1
     #print(empty)
-    answer = int(np.sum(empty))
+    answer = int(np.sum(empty) + 1)
     print(answer)
 
 
