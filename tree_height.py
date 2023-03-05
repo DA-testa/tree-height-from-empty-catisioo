@@ -6,12 +6,18 @@ import numpy as np
 
 
 def compute_height(n, parents):
-    if n <= 100:
-        unique_array = np.unique(parents)
-        unique_number = unique_array.size
-        print(unique_number)
-    else:
-        pass
+    
+    empty = np.zeros(n)
+    #print(empty)
+
+    for i in range(n):
+        if parents[i] != -1:
+            index = parents[i]
+            empty[index] = 1
+    #print(empty)
+    answer = int(np.sum(empty) + 1)
+    print(answer)
+
 
 
 def main():
@@ -35,7 +41,7 @@ def main():
         if "a" in file_n:
             return
         else:
-            with open(".test/" + file_n, mode= 'r') as f:
+            with open(".test/" + file_n, 'r') as f:
                 #nodes
                 n = int(f.readline())
                 #parents
