@@ -6,58 +6,55 @@ import numpy as np
 
 
 def compute_height(n, parents):
+    arr = np.zeros(n, dtype=int)
 
-    parents = np.array(parents)
-
-    tree = np.empty(n, dtype = object)
-
-    tree.fill([])
-
-    
     for i in range(n):
+        if arr[i] != 0:
+            continue
 
-        if parents[i] == -1:
-
-            root = i       
-        else:
-
-            tree[parents[i]] = np.append(tree[parents[i]], i)
-
-    def max_height(a):
-
-        if not tree[a]:
-
-            return 1      
-        return max(max_height(b) for b in tree[a])      
-    
-    return max_height(root)
- 
+        height = 1
+        val = parents[i]
+        while val != -1:
+            if arr[val] != 0:
+                height = height + arr[val]
+                break
+            height = height + 1
+            val = parents[val]
+        a = i
+        while a != -1 and arr[a] == 0:
+            arr[a] = height
+            height = height - 1
+            a = parents[a]
+    return np.max(arr)
 
 
 def main():
     
     text = input()
 
-    if text == 'F':
+    if text == "I":
+        n = int(input())
+        parents = np.asarray(list(map(int, input().split())))
+    elif text == "F":
         file = input().strip()
-        with open(file, 'r') as f:
+        if "a" in file:
+            return
+        with open("test/" + file, mode= 'r') as f:
             n = int(f.readline())
-            parents = list(map(int, f.readline().split()))
-
-            print(compute_height(n, parents))
-
+            parents = np.asarray(list(map(int,f.readline().split())))
     else:
-        n = int(text)
-        #n = int(input())
-        line = input()
-        parents = list(map(int, line.split()))
+        return
+    
+    answer = compute_height(n, parents)
+    print(answer)
 
-        print(compute_height(n, parents))
+    #print(n)
+    #print(parents)
 
 
-if __name__ == '__main__':
 
-    sys.setrecursionlimit(10**7)
-    threading.stack_size(2**27)
-    threading.Thread(target=main).start()
-    main()
+sys.setrecursionlimit(10**7)
+threading.stack_size(2**27)
+threading.Thread(target=main).start()
+
+main()
