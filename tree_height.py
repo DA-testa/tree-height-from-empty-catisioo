@@ -48,8 +48,8 @@ def main():
     #answer = compute_height(n, parents)
     #print(answer)
 
-    print(n)
-    print(parents)
+    #print(n)
+    #print(parents)
 
 
 
