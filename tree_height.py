@@ -5,37 +5,59 @@ import threading
 import numpy as np
 
 
-def compute_height(n, arr):
+def compute_height(n, parents):
+
+    parents = np.array(parents)
+
+    tree = np.empty(n, dtype = object)
+
+    tree.fill([])
+
     
+    for i in range(n):
+
+        if parents[i] == -1:
+
+            root = i       
+        else:
+
+            tree[parents[i]] = np.append(tree[parents[i]], i)
+
+    def max_height(a):
+
+        if not tree[a]:
+
+            return 1      
+        return max(max_height(b) for b in tree[a])      
     
-    unique = np.unique(arr, return_counts=False)
-    max_height = len(unique)
-    
-    return max_height
+    return max_height(root)
+ 
 
 
 def main():
     
-    # implement input form keyboard and from files
-    n = int(input())
-    number_string = input()
-    arr = np.fromstring(number_string, dtype = int, sep= ' ')
+    text = input()
 
-    answer = compute_height(n, arr)
-    
-    print(answer)
+    if text == 'F':
+        file = input().strip()
+        with open(file, 'r') as f:
+            n = int(f.readline())
+            parents = list(map(int, f.readline().split()))
 
-    
+            print(compute_height(n, parents))
 
-# In Python, the default limit on recursion depth is rather low,
-# so raise it here for this problem. Note that to take advantage
-# of bigger stack, we have to launch the computation in a new thread.
-sys.setrecursionlimit(10**7)  # max depth of recursion
-threading.stack_size(2**27)   # new thread will get stack of such size
-threading.Thread(target=main).start()
+    else:
+        n = int(text)
+        #n = int(input())
+        line = input()
+        parents = list(map(int, line.split()))
 
-#main()
-# print(numpy.array([1,2,3]))
+        print(compute_height(n, parents))
+
 
 if __name__ == '__main__':
+
+    sys.setrecursionlimit(10**7)
+    threading.stack_size(2**27)
+    threading.Thread(target=main).start()
     main()
