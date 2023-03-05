@@ -41,7 +41,7 @@ def main():
         if "a" in file_n:
             return
         else:
-            with open('.test/' + file_n, 'r') as f:
+            with open('/test/' + file_n, 'r') as f:
                 #nodes
                 n = int(f.readline())
                 #parents
