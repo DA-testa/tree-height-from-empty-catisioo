@@ -25,7 +25,7 @@ def main():
     text = input()
 
     #text
-    if text == "I":
+    if "I" in text:
         #nodes
         n = int(input())
         #parents
@@ -36,7 +36,7 @@ def main():
             compute_height(n, parents)       
     
     #file
-    elif text == "F":
+    elif "F" in text:
         file_n = input().strip()
         if "a" in file_n:
             return
