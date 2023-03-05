@@ -14,8 +14,10 @@ def compute_height(n, parents):
         if parents[i] != -1:
             index = parents[i]
             empty[index] = 1
+        else:
+            empty[0] = 1
     #print(empty)
-    answer = int(np.sum(empty) + 1)
+    answer = int(np.sum(empty))
     print(answer)
 
 
@@ -41,7 +43,7 @@ def main():
         if "a" in file_n:
             return
         else:
-            with open('test/' + file_n, 'r') as f:
+            with open('.test/' + file_n, 'r') as f:
                 #nodes
                 n = int(f.readline())
                 #parents
@@ -59,7 +61,7 @@ def main():
 
 
 
-#sys.setrecursionlimit(10**7)
-#threading.stack_size(2**27)
+sys.setrecursionlimit(10**7)
+threading.stack_size(2**27)
 threading.Thread(target=main).start()
 
